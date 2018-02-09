@@ -15,11 +15,15 @@ node {
     }
 
     stage("Build frontend") {
-        sh "./bin/build frontend"
+        docker.image("docker.io/node:8-alpine").withRun{
+            sh "./bin/build frontend"
+        }
     }
 
     stage("Build uberjar") {
-        sh "./bin/build uberjar"
+        docker.image("docker.io/clojure:lein-alpine").withRun{
+            sh "./bin/build uberjar"
+        }
     }
 
     stage("Cleanup"){
