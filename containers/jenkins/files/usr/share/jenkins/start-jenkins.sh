@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -d "/var/jenkins/init.groovy.d/" ];
-    echo "--- Copying jenkins"
+    echo "--- Copying reference files"
     then
         cp -r /usr/share/jenkins/ref/* /var/jenkins/
 fi
