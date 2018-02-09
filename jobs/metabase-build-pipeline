@@ -1,0 +1,28 @@
+#!/usr/bin/env groovy
+
+def version = "0.28.0"
+
+node {
+
+    git_repo = "https://github.com/metabase/metabase.git"
+
+    stage("Pull repository") {
+        git git_repo
+    }
+
+    stage("Update version") {
+        sh "./bin/build version"
+    }
+
+    stage("Build frontend") {
+        sh "./bin/build frontend"
+    }
+
+    stage("Build uberjar") {
+        sh "./bin/build uberjar"
+    }
+
+    stage("Cleanup"){
+        deleteDir()
+    }
+}
