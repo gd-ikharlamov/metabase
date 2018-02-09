@@ -19,13 +19,13 @@ node {
     }
 
     stage("Build frontend") {
-        docker.image("docker.io/node:8-alpine").withRun{
+        docker.image("docker.io/node:8-alpine").inside{
             sh "./bin/build frontend-deps frontend"
         }
     }
 
     stage("Build uberjar") {
-        docker.image("docker.io/clojure:lein-alpine").withRun{
+        docker.image("docker.io/clojure:lein-alpine").inside{
             sh "./bin/build uberjar"
         }
     }
