@@ -2,11 +2,11 @@
 
 node {
 
-    def version = "0.28.0"
+    def git_tag = "v0.28.0"
     def git_repo = "https://github.com/metabase/metabase.git"
 
     stage("Pull repository") {
-        checkout([$class: 'GitSCM', branches: [[name: 'tags/' + version ]],
+        checkout([$class: 'GitSCM', branches: [[name: 'tags/' + git_tag ]],
                                     browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/metabase/metabase'],
                                     userRemoteConfigs:
                                     [[url: git_repo]]
