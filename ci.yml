@@ -10,7 +10,7 @@ services:
         container_name: jenkins
         restart: always
         volumes:
-            - $PWD/data/jenkins:/opt/jenkins/:z
+            - $PWD/data/jenkins:/var/jenkins/:z
             - /var/run/docker.sock:/var/run/docker.sock:z
         ports:
             - 8080:8080

@@ -1,7 +1,0 @@
-ansible
-git
-workflow-aggregator
-job-dsl
-role-strategy
-google-login
-ssh-agent
