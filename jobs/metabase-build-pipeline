@@ -20,7 +20,7 @@ node {
 
     stage("Build frontend") {
         docker.image("docker.io/node:8-alpine").withRun{
-            sh "./bin/build frontend"
+            sh "./bin/build frontend-deps frontend"
         }
     }
 
