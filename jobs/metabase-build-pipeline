@@ -12,7 +12,7 @@ node {
         ])
     }
 
-    stage("Build frontend") {
+    stage("Build metabase") {
         docker.image("localhost/buildenv:local").inside() {
             sh './bin/build'
         }
