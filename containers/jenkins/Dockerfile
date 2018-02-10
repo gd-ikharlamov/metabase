@@ -1,4 +1,6 @@
 FROM docker.io/centos:7
+LABEL maintainer="Ilya Kharlamov <ikharlamov@griddynamics.com>" \
+      description="Centos 7 with jenkins for pmo metabase"
 ARG docker_gid=1001
 ARG jenkins_link=http://mirrors.jenkins.io/war-stable/latest/jenkins.war
 ENV JENKINS_HOME=/var/jenkins/
