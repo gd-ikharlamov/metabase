@@ -2,11 +2,11 @@
 
 node {
 
-    def git_tag = "v0.28.1"
+    def metabase_version = "0.28.1"
     def git_repo = "https://github.com/metabase/metabase.git"
 
     stage("Pull repository") {
-        checkout([$class: 'GitSCM', branches: [[name: 'tags/' + git_tag ]],
+        checkout([$class: 'GitSCM', branches: [[name: 'tags/v' + metabase_version ]],
                                     browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/metabase/metabase'],
                                     userRemoteConfigs: [[url: git_repo]]
         ])
@@ -21,6 +21,13 @@ node {
     stage("Archive artifact") {
         archiveArtifacts artifacts: 'target/uberjar/metabase.jar',
                          onlyIfSuccessful: true
+    }
+
+    stage("Deploy docker image") {
+        build job: 'docker-build',
+              parameters: [
+                           string(name: 'metabase_version', value: "${metabase_version}")
+                          ]
     }
 
     stage("Cleanup"){
