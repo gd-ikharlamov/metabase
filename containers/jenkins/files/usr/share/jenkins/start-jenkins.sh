@@ -6,7 +6,7 @@ export LANG=en_US.UTF-8
 if [ ! -d "/var/jenkins/init.groovy.d/" ];
     echo "--- Copying reference files"
     cp -r /usr/share/jenkins/ref/* /var/jenkins/
-    else
+    then
     echo "--- Jenkins home already exists"
 fi
 
