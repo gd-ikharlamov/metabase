@@ -1,26 +1,18 @@
 #!groovy
 
-folder('metabase') {
-    description('Folder for metabase')
+folder('seed') {
+    description('Folder seed jobs')
 }
 
 
-pipelineJob('metabase/build') {
+freeStyleJob("seed/main-seed") {
+    scm {
+        github('gd-ikharlamov/metabase')
+    }
 
-    def repo = 'https://github.com/gd-ikharlamov/metabase'
-
-    description('metabase build job')
-
-    definition {
-        cpsScm {
-            scm {
-                git {
-                    remote { url(repo) }
-                    branches('master')
-                    scriptPath('jobs/metabase-build-pipeline')
-                    extensions { }
-                }
-            }
+    steps {
+        dsl {
+            external('jobs/seed/main_seed.groovy')
         }
     }
 }

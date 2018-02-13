@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+    postgres:
+        image: docker.io/postgres:9.6-alpine
+        environment:
+            POSTGRES_USER: metabase
+            POSTGRES_PASSWORD: p@ssword
+            POSTGRES_DB: metabase
+            PGDATA: /var/lib/postgresql/data/pgdata
+        volumes:
+            - $PWD/data/postgres:/var/lib/postgresql/data/:z
+        networks:
+            default:
+                aliases:
+                    - postgres
+
+    metabase:
+        image: docker.io/metabase/metabase:v0.27.2
+        environment:
+            # MB_DB_FILE: /metabase-data/metabase.db
+            # MB_DB_TYPE: h2
+            MB_DB_TYPE: postgres
+            MB_DB_DBNAME: metabase
+            MB_DB_PORT: 5432
+            MB_DB_USER: metabase
+            MB_DB_PASS: p@ssword
+            MB_DB_HOST: postgres
+        # command: load-from-h2
+        volumes:
+            - $PWD/data/metabase/:/metabase-data:z
+        ports:
+            - 3000:3000
+        networks:
+            default:
+                aliases:
+                    - metabase
