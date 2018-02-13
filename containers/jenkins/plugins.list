@@ -3,6 +3,6 @@ git:latest
 workflow-aggregator:latest
 job-dsl:latest
 role-strategy:latest
-google-login:latest
 ssh-agent:latest
 copyartifact:latest
+ldap:latest
