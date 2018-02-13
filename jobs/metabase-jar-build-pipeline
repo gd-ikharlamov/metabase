@@ -4,6 +4,7 @@ node {
 
     def metabase_version = "0.28.1"
     def git_repo = "https://github.com/metabase/metabase.git"
+    def registry = "registry.pmo.aws.griddynamics.net"
 
     stage("Pull repository") {
         checkout([$class: 'GitSCM', branches: [[name: 'tags/v' + metabase_version ]],
@@ -13,7 +14,7 @@ node {
     }
 
     stage("Build metabase") {
-        docker.image("localhost/metabase-buildenv:latest").inside("-e HOME=${env.WORKDIR}") {
+        docker.image("${registry}/metabase-buildenv:latest").inside("-e HOME=${env.WORKDIR}") {
             sh './bin/build'
         }
     }
