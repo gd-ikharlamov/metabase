@@ -38,7 +38,7 @@ pipelineJob('metabase/docker-build') {
                 git {
                     remote { url(repo) }
                     branches('master')
-                    scriptPath('jobs/metabase-docker-build-pipeline')
+                    scriptPath('jobs/metabase-jar-build-pipeline')
                     extensions { }
                 }
             }
