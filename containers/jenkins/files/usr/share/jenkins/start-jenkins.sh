@@ -2,8 +2,9 @@
 
 if [ ! -d "/var/jenkins/init.groovy.d/" ];
     echo "--- Copying reference files"
-    then
-        cp -r /usr/share/jenkins/ref/* /var/jenkins/
+    cp -r /usr/share/jenkins/ref/* /var/jenkins/
+    else
+    echo "--- Jenkins home already exists"
 fi
 
 echo "--- Starting jenkins"
