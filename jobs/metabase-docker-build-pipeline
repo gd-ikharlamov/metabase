@@ -8,15 +8,16 @@ node {
 
     stage("Pull repository") {
         checkout([$class: 'GitSCM', branches: [[name: 'master' ]],
-                                    browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/gd-ikharlamov/metabase'],
-                                    userRemoteConfigs: [[url: git_repo]]
+                                    browser: [$class: 'GithubWeb',
+                                               repoUrl: 'https://github.com/gd-ikharlamov/metabase'],
+                                    userRemoteConfigs: [[url: git_repo ]]
         ])
     }
 
     stage('Copy metabase.jar') {
         copyArtifacts filter: 'metabase.jar',
                       fingerprintArtifacts: true,
-                      projectName: 'metabase/jar-build',
+                      projectName: 'jar-build',
                       target: 'containers/metabase/files/opt'
     }
 

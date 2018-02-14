@@ -8,8 +8,9 @@ node {
 
     stage("Pull repository") {
         checkout([$class: 'GitSCM', branches: [[name: 'tags/v' + metabase_version ]],
-                                    browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/metabase/metabase'],
-                                    userRemoteConfigs: [[url: git_repo]]
+                                    browser: [$class: 'GithubWeb', r
+                                               epoUrl: 'https://github.com/metabase/metabase'],
+                                    userRemoteConfigs: [[url: git_repo ]]
         ])
     }
 
