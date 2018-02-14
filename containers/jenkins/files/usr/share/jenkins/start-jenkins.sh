@@ -16,5 +16,5 @@ chown -R jenkins:jenkins /var/jenkins/
 su jenkins -c '/usr/bin/java \
                -Djenkins.install.runSetupWizard=false \
                -Dhudson.model.DirectoryBrowserSupport.CSP="" \
-               -Xmx512m \
+               -Xmx256m \
                -jar /usr/share/jenkins/jenkins.war'
