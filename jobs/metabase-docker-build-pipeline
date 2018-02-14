@@ -16,7 +16,7 @@ node {
     stage('Copy metabase.jar') {
         copyArtifacts filter: 'metabase.jar',
                       fingerprintArtifacts: true,
-                      projectName: 'metabase/build',
+                      projectName: 'metabase/jar-build',
                       target: 'containers/metabase/files/opt'
     }
 
