@@ -8,7 +8,7 @@ node {
     def registry = "registry.pmo.aws.griddynamics.net"
 
     dir('metabase'){
-        stage("Pull metabase repo") {
+        stage("Pull metabase repo"){
             checkout([$class: 'GitSCM', branches: [[name: 'tags/v' + metabase_version ]],
                                         browser: [$class: 'GithubWeb',
                                                    repoUrl: 'https://github.com/metabase/metabase'],
@@ -16,7 +16,7 @@ node {
             ])
         }
 
-        stage("Build metabase") {
+        stage("Build metabase"){
             docker.image("${registry}/metabase-buildenv:latest").inside("-e HOME=${env.WORKDIR}") {
                 sh 'export NODE_OPTIONS=--max_old_space_size=512 && \
                     ./bin/build'
@@ -25,7 +25,7 @@ node {
     }
 
     dir('tools'){
-        stage("Pull tools repo") {
+        stage("Pull tools repo"){
             checkout([$class: 'GitSCM', branches: [[name: 'master' ]],
                                         browser: [$class: 'GithubWeb',
                                                    repoUrl: 'https://github.com/gd-ikharlamov/metabase'],
@@ -33,7 +33,7 @@ node {
             ])
         }
 
-        stage('Build docker image') {
+        stage('Build docker image'){
             sh 'cp ../metabase/target/uberjar/metabase.jar containers/metabase/files/opt/'
             app = docker.build("${registry}/metabase", "containers/metabase/")
         }
@@ -47,7 +47,11 @@ node {
     }
 
     stage("Cleanup"){
-        deleteDir('metabase')
-        deleteDir('tools')
+        dir('metabase') {
+            deleteDir()
+        }
+        dir('tools'){
+            deleteDir()
+        }
     }
 }
