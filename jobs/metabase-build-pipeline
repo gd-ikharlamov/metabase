@@ -1,0 +1,53 @@
+#!/usr/bin/env groovy
+
+node {
+
+    def metabase_version = "0.28.1"
+    def git_repo_metabase = "https://github.com/metabase/metabase.git"
+    def git_repo_tools = "https://github.com/gd-ikharlamov/metabase"
+    def registry = "registry.pmo.aws.griddynamics.net"
+
+    dir('metabase'){
+        stage("Pull metabase repo") {
+            checkout([$class: 'GitSCM', branches: [[name: 'tags/v' + metabase_version ]],
+                                        browser: [$class: 'GithubWeb',
+                                                   repoUrl: 'https://github.com/metabase/metabase'],
+                                        userRemoteConfigs: [[url: git_repo_metabase ]]
+            ])
+        }
+
+        stage("Build metabase") {
+            docker.image("${registry}/metabase-buildenv:latest").inside("-e HOME=${env.WORKDIR}") {
+                sh 'export NODE_OPTIONS=--max_old_space_size=512 && \
+                    ./bin/build'
+            }
+        }
+    }
+
+    dir('tools'){
+        stage("Pull tools repo") {
+            checkout([$class: 'GitSCM', branches: [[name: 'master' ]],
+                                        browser: [$class: 'GithubWeb',
+                                                   repoUrl: 'https://github.com/gd-ikharlamov/metabase'],
+                                        userRemoteConfigs: [[url: git_repo_tools ]]
+            ])
+        }
+
+        stage('Build docker image') {
+            sh 'cp ../metabase/target/uberjar/metabase.jar containers/metabase/files/opt/'
+            app = docker.build("${registry}/metabase", "containers/metabase/")
+        }
+
+        stage('Push image') {
+            withDockerRegistry([url: "${registry}"]) {
+                app.push("${metabase_version}")
+                app.push("latest")
+            }
+        }
+    }
+
+    stage("Cleanup"){
+        deleteDir('metabase')
+        deleteDir('tools')
+    }
+}

@@ -4,7 +4,6 @@ node {
 
     def git_repo = "https://github.com/gd-ikharlamov/metabase"
     def registry = "registry.pmo.aws.griddynamics.net"
-    def metabase_version = ""
 
     stage("Pull repository") {
         checkout([$class: 'GitSCM', branches: [[name: 'master' ]],

@@ -4,5 +4,5 @@ workflow-aggregator:latest
 job-dsl:latest
 role-strategy:latest
 ssh-agent:latest
-copyartifact:latest
+ansicolor:latest
 ldap:latest

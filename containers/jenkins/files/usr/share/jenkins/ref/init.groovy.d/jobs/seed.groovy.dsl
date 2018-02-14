@@ -5,7 +5,7 @@ folder('metabase') {
 }
 
 
-pipelineJob('metabase/jar-build') {
+pipelineJob('metabase/build') {
 
     def repo = 'https://github.com/gd-ikharlamov/metabase'
 
@@ -18,27 +18,6 @@ pipelineJob('metabase/jar-build') {
                     remote { url(repo) }
                     branches('master')
                     scriptPath('jobs/metabase-build-pipeline')
-                    extensions { }
-                }
-            }
-        }
-    }
-}
-
-
-pipelineJob('metabase/docker-build') {
-
-    def repo = 'https://github.com/gd-ikharlamov/metabase'
-
-    description('metabase build job')
-
-    definition {
-        cpsScm {
-            scm {
-                git {
-                    remote { url(repo) }
-                    branches('master')
-                    scriptPath('jobs/metabase-jar-build-pipeline')
                     extensions { }
                 }
             }
