@@ -18,8 +18,7 @@ node {
 
         stage("Build metabase"){
             docker.image("${registry}/metabase-buildenv:latest").inside("-e HOME=${env.WORKDIR}") {
-                sh 'export NODE_OPTIONS=--max_old_space_size=512 && \
-                    ./bin/build'
+                sh './bin/build'
             }
         }
     }
