@@ -50,3 +50,24 @@ pipelineJob('tools/buildenv-docker-build') {
         }
     }
 }
+
+
+pipelineJob('tools/postgres-docker-build') {
+
+    def repo = 'https://github.com/gd-ikharlamov/metabase'
+
+    description('postgres build job')
+
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote { url(repo) }
+                    branches('master')
+                    scriptPath('jobs/postgres-docker-build-pipeline')
+                    extensions { }
+                }
+            }
+        }
+    }
+}
