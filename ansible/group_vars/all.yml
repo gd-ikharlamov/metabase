@@ -1,0 +1,4 @@
+docker_network: metabase-network
+volume_data: /var/data
+postgres_version: 9.6
+metabase_version: 0.28.1
