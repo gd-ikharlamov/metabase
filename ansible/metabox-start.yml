@@ -4,7 +4,7 @@
 
     - name: Create a network
       docker_network:
-          name: {{ docker_network }}
+          name: "{{ network }}"
 
     - name: "Start postgres"
       docker_container:
@@ -17,7 +17,7 @@
           volumes:
               - "{{ volume_data }}/:/var/lib/postgres:z"
           networks:
-              - name: {{ docker_network }}
+              - name: "{{ network }}"
                 aliases:
                     - db
                     - postgres
@@ -33,7 +33,7 @@
           recreate: yes
           image: "{{ docker_registry }}/metabase:{{ metabase_version }}"
           networks:
-              - name: {{ docker_network }}
+              - name: "{{ network }}"
                 aliases:
                     - metabase
           ports:
