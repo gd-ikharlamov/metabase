@@ -1,0 +1,44 @@
+---
+- hosts: metabase-prod
+  tasks:
+
+    - name: Create a network
+      docker_network:
+          name: {{ docker_network }}
+
+    - name: "Start postgres"
+      docker_container:
+          name: postgres
+          pull: yes
+          state: started
+          restart_policy: unless-stopped
+          recreate: yes
+          image: "{{ docker_registry }}/postgres:{{ postgres_version }}"
+          volumes:
+              - "{{ volume_data }}/:/var/lib/postgres:z"
+          networks:
+              - name: {{ docker_network }}
+                aliases:
+                    - db
+                    - postgres
+          ports:
+              - 5432:5432
+
+    - name: "Start metabase"
+      docker_container:
+          name: metabase
+          pull: yes
+          state: started
+          restart_policy: unless-stopped
+          recreate: yes
+          image: "{{ docker_registry }}/metabase:{{ metabase_version }}"
+          networks:
+              - name: {{ docker_network }}
+                aliases:
+                    - metabase
+          ports:
+              - 3000:3000
+
+    - name: "Cleanup dandeling images"
+      shell: docker rmi $(docker images -q -f dangling=true)
+      ignore_errors: yes
