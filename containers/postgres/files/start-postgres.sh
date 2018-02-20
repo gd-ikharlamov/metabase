@@ -11,7 +11,7 @@ if [ -f "/var/lib/pgsql/$POSTGRES_VERSION/data/postgresql.conf" ];
         echo "================"
         echo "Init DB"
         echo "================"
-        /usr/pgsql-$POSTGRES_VERSION/bin/postgresql94-setup initdb
+        /usr/pgsql-$POSTGRES_VERSION/bin/postgresql${POSTGRES_VERSION//.}-setup initdb
         printf "local   all all         peer\nhost    all all 0.0.0.0/0 md5\n" > /var/lib/pgsql/$POSTGRES_VERSION/data/pg_hba.conf
         sed "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" -i /var/lib/pgsql/$POSTGRES_VERSION/data/postgresql.conf
         sed "s/#port = 5432/port = 5432/g" -i /var/lib/pgsql/$POSTGRES_VERSION/data/postgresql.conf
