@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -f "/var/lib/pgsql/$POSTGRES_VERSION/data/postgresql.conf" ];
+if [ -f "/var/lib/pgsql/$POSTGRES_VERSION/data/postgresql.conf" ];
     then
         echo "================"
         echo "Starting postgres"
