@@ -11,4 +11,4 @@ if [ $METABASE_STATUS == "ok" ];
 fi
 
 export AWS_DEFAULT_REGION=eu-west-1
-aws cloudwatch put-metric-data --namespace http_endpoint --dimensions InstanceID=$InstanceID --metric-name MetabaseStatus --value $METABASE_UP --timestamp $TIMESTAMP
+/home/centos/.local/bin/aws cloudwatch put-metric-data --namespace http_endpoint --dimensions InstanceID=$InstanceID --metric-name MetabaseStatus --value $METABASE_UP --timestamp $TIMESTAMP
