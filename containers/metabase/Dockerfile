@@ -7,6 +7,7 @@ RUN yum install -y java-1.8.0-openjdk-headless && \
     # &&\
     # chown -R metabase:metabase /opt/metabase
 COPY files/ /
-RUN chmod +x /opt/metabase/run.sh
+RUN chown -R metabase:metabase /opt/metabase && \
+    chmod +x /opt/metabase/run.sh
 USER metabase
 ENTRYPOINT ["/opt/metabase/run.sh"]

@@ -20,7 +20,7 @@ export MB_JETTY_HOST=0.0.0.0
 # java -jar /opt/metabase/metabase.jar load-from-h2
 
 ## set metabase h2 db location
-# MB_DB_FILE=/opt/metabase/metabase.db
+export MB_DB_FILE=/opt/metabase/metabase.db
 
 ## set timezone
 # export JAVA_TIMEZONE=US/Pacific
